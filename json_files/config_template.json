@@ -44,10 +44,6 @@
       ],
       "rules": [
         {
-          "rule_set": "geosite-category-ads-all",
-          "server": "block"
-        },
-        {
           "outbound": "any",
           "server": "cn",
           "disable_cache": true
@@ -60,6 +56,10 @@
           "rule_set": "custom-geosite-direct",
           "server": "cn"
         }, 
+        {
+          "rule_set": "geosite-category-ads-all",
+          "server": "block"
+        },
         {
           "rule_set": "geosite-cn",
           "server": "cn"
