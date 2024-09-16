@@ -1,0 +1,18 @@
+{
+    "version": 1,
+    "rules": [
+      {
+        "domain_suffix": [
+            "clash.razord.top",
+            "yacd.metacubex.one",
+            "yacd.haishan.me",
+            "d.metacubex.one",
+
+            "hongxingdl.com",
+            "xn--8stx8olrwkucjq3b.com",
+
+            "contentful.com"
+        ]
+      }
+    ]
+}

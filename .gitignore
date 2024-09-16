@@ -11,3 +11,7 @@ venv/
 ENV/ 
 env.bak/ 
 venv.bak/ 
+
+json_files/config.json
+json_files/providers.json
+sing-box-runtime
