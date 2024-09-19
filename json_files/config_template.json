@@ -5,7 +5,7 @@
     },
     "experimental": {
       "clash_api": {
-        "external_controller": "127.0.0.1:9090",
+        "external_controller": "0.0.0.0:9090",
         "external_ui": "ui",
         "secret": "",
         "external_ui_download_url": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip",
@@ -25,12 +25,14 @@
       "servers": [
         {
           "tag": "google",
-          "address": "https://8.8.8.8/dns-query",
+          "address": "tls://8.8.8.8",
+          "address_resolver": "cn",
+          "address_strategy": "ipv4_only",
           "detour": "DNS"
         },
         {
           "tag": "cn",
-          "address": "https://120.53.53.53/dns-query",
+          "address": "223.5.5.5",
           "detour": "direct"
         },
         {
@@ -48,10 +50,6 @@
           "server": "cn",
           "disable_cache": true
         },
-        {
-          "rule_set": "custom-geoip-direct",
-          "server": "cn"
-        }, 
         {
           "rule_set": "custom-geosite-direct",
           "server": "cn"
@@ -95,13 +93,16 @@
         "tag": "tun",
         "type": "tun",
         "inet4_address": "172.19.0.1/30",
-        "stack": "system",
+        "mtu": 9000,
         "auto_route": true,
+        "strict_route": true,
         "sniff": true,
+        "endpoint_independent_nat": false,
+        "stack": "system",
         "platform": {
           "http_proxy": {
             "enabled": true,
-            "server": "127.0.0.1",
+            "server": "0.0.0.0",
             "server_port": 9999
           }
         }
@@ -109,9 +110,10 @@
       {
         "tag": "mixed",
         "type": "mixed",
-        "listen": "127.0.0.1",
+        "listen": "0.0.0.0",
         "listen_port": 9999,
-        "sniff": true
+        "sniff": true,
+        "users": []
       }
     ],
     "outbounds": [
