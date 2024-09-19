@@ -18,31 +18,13 @@
       }
     },
     "dns": {
-      "fakeip": {
-        "enabled": true,
-        "inet4_range": "198.18.0.1/15"
-      },
       "servers": [
-        {
-          "tag": "google",
-          "address": "https://8.8.8.8/dns-query",
-          "detour": "DNS"
-        },
-        {
-          "tag": "cn",
-          "address": "https://120.53.53.53/dns-query",
-          "detour": "direct"
-        },
-        {
-          "tag": "fakeip",
-          "address": "fakeip"
-        },
-        {
-          "tag": "block",
-          "address": "rcode://success"
-        }
+        {"tag": "google", "address": "tls://8.8.8.8", "address_resolver": "cn", "address_strategy": "ipv4_only", "detour": "DNS"},
+        {"tag": "cn", "address": "223.5.5.5", "detour": "direct"},
+        {"tag": "block", "address": "rcode://success"}
       ],
       "rules": [
+<<<<<<< HEAD
         {
           "outbound": "any",
           "server": "cn",
@@ -88,6 +70,17 @@
       ],
       "final": "cn",
       "independent_cache": true,
+=======
+        {"outbound": "any", "server": "cn", "disable_cache": true},
+        {"rule_set": "custom-geosite-direct", "server": "cn"}, 
+        {"rule_set": "geosite-category-ads-all", "server": "block"},
+        {"rule_set": "geosite-cn", "server": "cn"},
+        {"clash_mode": "direct", "server": "cn"},
+        {"clash_mode": "global", "server": "google"},
+        {"rule_set": "geosite-geolocation-!cn", "server": "google"}
+      ],
+      "final": "cn",
+>>>>>>> f4c035151e74a410c7356f9278289fb340bc05eb
       "strategy": "ipv4_only"
     },
     "inbounds": [
@@ -96,13 +89,16 @@
         "type": "tun",
 	"interface_name": "tun0",
         "inet4_address": "172.19.0.1/30",
-        "stack": "system",
+        "mtu": 9000,
         "auto_route": true,
+        "strict_route": true,
         "sniff": true,
+        "endpoint_independent_nat": false,
+        "stack": "system",
         "platform": {
           "http_proxy": {
             "enabled": true,
-            "server": "127.0.0.1",
+            "server": "0.0.0.0",
             "server_port": 9999
           }
         }
@@ -110,9 +106,10 @@
       {
         "tag": "mixed",
         "type": "mixed",
-        "listen": "127.0.0.1",
+        "listen": "0.0.0.0",
         "listen_port": 9999,
-        "sniff": true
+        "sniff": true,
+        "users": []
       }
     ],
     "outbounds": [
