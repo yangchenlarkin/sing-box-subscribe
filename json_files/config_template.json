@@ -18,74 +18,21 @@
       }
     },
     "dns": {
-      "fakeip": {
-        "enabled": true,
-        "inet4_range": "198.18.0.1/15"
-      },
       "servers": [
-        {
-          "tag": "google",
-          "address": "tls://8.8.8.8",
-          "address_resolver": "cn",
-          "address_strategy": "ipv4_only",
-          "detour": "DNS"
-        },
-        {
-          "tag": "cn",
-          "address": "223.5.5.5",
-          "detour": "direct"
-        },
-        {
-          "tag": "fakeip",
-          "address": "fakeip"
-        },
-        {
-          "tag": "block",
-          "address": "rcode://success"
-        }
+        {"tag": "google", "address": "tls://8.8.8.8", "address_resolver": "cn", "address_strategy": "ipv4_only", "detour": "DNS"},
+        {"tag": "cn", "address": "223.5.5.5", "detour": "direct"},
+        {"tag": "block", "address": "rcode://success"}
       ],
       "rules": [
-        {
-          "outbound": "any",
-          "server": "cn",
-          "disable_cache": true
-        },
-        {
-          "rule_set": "custom-geosite-direct",
-          "server": "cn"
-        }, 
-        {
-          "rule_set": "geosite-category-ads-all",
-          "server": "block"
-        },
-        {
-          "rule_set": "geosite-cn",
-          "server": "cn"
-        },   
-        {
-          "clash_mode": "direct",
-          "server": "cn"
-        },
-        {
-          "clash_mode": "global",
-          "server": "google"
-        },
-        {
-          "inbound": "tun",
-          "query_type": [
-            "A",
-            "AAAA"
-          ],
-          "server": "fakeip",
-          "rewrite_ttl": 1
-        },
-        {
-          "rule_set": "geosite-geolocation-!cn",
-          "server": "google"
-        }
+        {"outbound": "any", "server": "cn", "disable_cache": true},
+        {"rule_set": "custom-geosite-direct", "server": "cn"}, 
+        {"rule_set": "geosite-category-ads-all", "server": "block"},
+        {"rule_set": "geosite-cn", "server": "cn"},
+        {"clash_mode": "direct", "server": "cn"},
+        {"clash_mode": "global", "server": "google"},
+        {"rule_set": "geosite-geolocation-!cn", "server": "google"}
       ],
-      "final": "google",
-      "independent_cache": true,
+      "final": "cn",
       "strategy": "ipv4_only"
     },
     "inbounds": [
